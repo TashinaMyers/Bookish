@@ -1,3 +1,5 @@
+// The ThoughtForm component in this code allows users to post their thoughts if they are logged in. It interacts with a GraphQL API to add new thoughts and updates the thought list after a submission.
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';

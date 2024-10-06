@@ -1,3 +1,5 @@
+// This code defines a Header component for a React app that uses react-router-dom for routing and a custom authentication utility (Auth) to manage user sessions.
+
 import { Link } from 'react-router-dom';
 
 import Auth from '../../utils/auth';

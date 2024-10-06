@@ -1,3 +1,5 @@
+// The AuthService class manages user authentication by handling JSON Web Tokens (JWT). It provides methods for getting the user's profile, checking login status, token expiration, and logging in or out.
+
 import decode from 'jwt-decode';
 
 class AuthService {

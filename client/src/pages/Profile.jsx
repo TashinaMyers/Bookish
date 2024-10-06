@@ -1,3 +1,5 @@
+//  This Profile component displays a user's profile, including their thoughts (posts) and a form to add new thoughts. It makes use of React Router's useParams to dynamically load a user profile based on the username from the URL, and Apollo Client’s useQuery hook to fetch user data.
+
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 

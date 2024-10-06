@@ -1,3 +1,5 @@
+// The Signup component allows users to create a new account by providing a username, email, and password. This component uses Apollo Client's useMutation hook to interact with a GraphQL API to sign up the user.
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 

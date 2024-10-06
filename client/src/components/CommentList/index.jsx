@@ -1,3 +1,6 @@
+// This component is responsible for rendering a list of comments and handling the case where no comments are available.
+//his component takes a comments prop, which is an array of comment objects. If no comments are passed (i.e., the array is empty), it displays a message saying "No Comments Yet." Otherwise, it loops through the comments and displays each one in a styled format.//
+
 const CommentList = ({ comments = [] }) => {
   if (!comments.length) {
     return <h3>No Comments Yet</h3>;

@@ -1,3 +1,5 @@
+// The SingleThought component is responsible for displaying a single thought along with its associated comments and a form to add new comments. It leverages React Router to capture the thoughtId from the URL and Apollo Client to query the data.
+
 // Import the `useParams()` hook
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';

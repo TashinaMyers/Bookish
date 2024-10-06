@@ -1,3 +1,5 @@
+// This code defines a CommentForm component in React, which is designed to allow users to add comments to a specific "thought" on a page. //
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';

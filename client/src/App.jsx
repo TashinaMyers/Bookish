@@ -1,3 +1,5 @@
+// React application that uses Apollo Client to connect to a GraphQL API.
+
 import {
   ApolloClient,
   InMemoryCache,

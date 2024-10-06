@@ -1,3 +1,5 @@
+// This code sets up the routing for a React application using react-router-dom. It defines the application's structure, including its pages and how users navigate between them.
+
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom/dist'
 import './index.css'
