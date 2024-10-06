@@ -1,3 +1,5 @@
+// defines a Mongoose schema for a "Thought" model in a Node.js application. The schema outlines the structure of a thought document in a MongoDB database, including its properties and validation rules.
+
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 

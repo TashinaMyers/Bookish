@@ -1,3 +1,5 @@
+// his code sets up an Express server that integrates Apollo Server to handle GraphQL requests.
+
 const express = require('express');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');

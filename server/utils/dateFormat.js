@@ -1,3 +1,5 @@
+// This code is a utility function designed to format timestamps into a more readable string format. It includes features like adding date suffixes (e.g., "1st", "2nd", "3rd", "4th") and the ability to customize month length (short or full).
+
 const addDateSuffix = (date) => {
   let dateStr = date.toString();
 

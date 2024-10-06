@@ -1,3 +1,5 @@
+// implements authentication functionality using JSON Web Tokens (JWT) in a GraphQL application.
+
 const { GraphQLError } = require('graphql');
 const jwt = require('jsonwebtoken');
 
