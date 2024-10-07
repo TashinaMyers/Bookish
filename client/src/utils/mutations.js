@@ -1,3 +1,5 @@
+// This code defines several GraphQL mutations for user authentication and interacting with thoughts and comments in a social media application using Apollo Client. Each mutation is written using the gql template literal provided by Apollo.
+
 import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`

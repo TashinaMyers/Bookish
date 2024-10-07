@@ -1,3 +1,5 @@
+// This code defines several GraphQL queries that are used to fetch user and thought data in a social media application built with Apollo Client. Each query is written using the gql template literal provided by Apollo.
+
 import { gql } from '@apollo/client';
 
 export const QUERY_USER = gql`

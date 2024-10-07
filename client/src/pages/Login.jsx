@@ -1,3 +1,5 @@
+// This Login component allows users to log into the application. It interacts with a GraphQL API using Apollo Client’s useMutation hook and performs the login mutation (LOGIN_USER). After a successful login, the user is authenticated and redirected.
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';

@@ -1,3 +1,5 @@
+// defines the GraphQL schema for a social networking application where users can create thoughts and comments. It outlines the data types, queries, and mutations that can be performed within the application.
+
 const typeDefs = `
   type User {
     _id: ID

@@ -1,3 +1,5 @@
+// This code defines a Footer component in React that includes navigation functionality, a conditional back button, and some styled content. 
+
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Footer = () => {

@@ -1,3 +1,5 @@
+// defines a Mongoose schema for a "User" model in a Node.js application. It includes functionality for password hashing using bcrypt and outlines the structure of a user document in a MongoDB database.
+
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 

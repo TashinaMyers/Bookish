@@ -1,3 +1,5 @@
+// script designed to seed a MongoDB database with initial data for a social media application. It connects to the database, cleans it of existing data, and populates it with new user and thought entries from JSON seed files
+
 const db = require('../config/connection');
 const { User, Thought } = require('../models');
 const userSeeds = require('./userSeeds.json');

@@ -1,3 +1,5 @@
+// defines the resolvers for a GraphQL API, specifically for a social networking application where users can share thoughts and comment on them.
+
 const { User, Thought } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 

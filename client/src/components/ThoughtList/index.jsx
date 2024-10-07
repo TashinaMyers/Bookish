@@ -1,3 +1,5 @@
+// The ThoughtList component is responsible for displaying a list of thoughts, each wrapped in a card UI. It accepts several props to manage its behavior, such as thoughts, title, showTitle, and showUsername.
+
 import { Link } from 'react-router-dom';
 
 const ThoughtList = ({

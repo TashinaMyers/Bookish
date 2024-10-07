@@ -1,3 +1,5 @@
+// he Home component is the main landing page for an app, displaying a list of "thoughts" (posts) and a form for adding new thoughts. It interacts with an Apollo Client useQuery hook to fetch data from a GraphQL API and renders two subcomponents: ThoughtForm (for adding new thoughts) and ThoughtList (for displaying the list of existing thoughts).
+
 import { useQuery } from '@apollo/client';
 
 import ThoughtList from '../components/ThoughtList';
