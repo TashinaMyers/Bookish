@@ -1,40 +1,48 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
-const mongoose = require('mongoose');
-const { typeDefs, resolvers } = require('../schemas'); // adjust the path based on your structure
 const path = require('path');
-const app = express();
+const { authMiddleware } = require('./utils/auth');
+
+// Import the typeDefs and resolvers
+const { typeDefs, resolvers } = require('../schemas');
+const db = require('./config/connection');
+
 const PORT = process.env.PORT || 3001;
+const app = express();
 
-// Middleware for parsing JSON and urlencoded form data
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/build')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+}
 
-// Create a new Apollo server instance
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-// Start the Apollo server
-const startServer = async () => {
-    await server.start(); // Ensure the server is started
+async function startApolloServer() {
+  // Create an instance of ApolloServer
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: authMiddleware,
+  });
 
-    server.applyMiddleware({ app }); // Apply middleware after the server has started
+  // Start the Apollo Server
+  await server.start();
 
-    // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../client/build/index.html'));
-    });
+  // Apply the Apollo middleware to the Express app
+  server.applyMiddleware({ app });
 
-    // Start the Express server
+  // Listen on the specified port after MongoDB connection is open
+  db.once('open', () => {
     app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}${server.graphqlPath}`);
+      console.log(`Server is running on http://localhost:${PORT}${server.graphqlPath}`);
+      console.log('Successfully connected to MongoDB');
     });
-};
+  });
+}
 
-// Call the startServer function to start everything
-startServer().catch(err => console.error(err));
+// Start the Apollo Server
+startApolloServer();
