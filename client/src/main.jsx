@@ -1,41 +1,23 @@
-// This code sets up the routing for a React application using react-router-dom. It defines the application's structure, including its pages and how users navigate between them.
-
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom/dist'
-import './index.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import App from './App.jsx'
-import Home from './pages/Home';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
-import SingleThought from './pages/SingleThought';
-import Profile from './pages/Profile';
-import Error from './pages/Error';
+import SearchBooks from './pages/SearchBooks'
+import SavedBooks from './pages/SavedBooks'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    error: <Error />,
+    errorElement: <h1 className='display-2'>Wrong page!</h1>,
     children: [
       {
         index: true,
-        element: <Home />
+        element: <SearchBooks />
       }, {
-        path: '/login',
-        element: <Login />
-      }, {
-        path: '/signup',
-        element: <Signup />
-      }, {
-        path: '/me',
-        element: <Profile />
-      }, {
-        path: '/profiles/:username',
-        element: <Profile />
-      }, {
-        path: '/thoughts/:thoughtId',
-        element: <SingleThought />
+        path: '/saved',
+        element: <SavedBooks />
       }
     ]
   }
