@@ -1,47 +1,40 @@
-// his code sets up an Express server that integrates Apollo Server to handle GraphQL requests.
-
 const express = require('express');
-const { ApolloServer } = require('@apollo/server');
-const { expressMiddleware } = require('@apollo/server/express4');
+const { ApolloServer } = require('apollo-server-express');
+const mongoose = require('mongoose');
+const { typeDefs, resolvers } = require('../schemas'); // adjust the path based on your structure
 const path = require('path');
-const { authMiddleware } = require('./utils/auth');
-
-const { typeDefs, resolvers } = require('./schemas');
-const db = require('./config/connection');
-
-const PORT = process.env.PORT || 3001;
 const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Middleware for parsing JSON and urlencoded form data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+// Create a new Apollo server instance
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+    typeDefs,
+    resolvers,
 });
 
-// Create a new instance of an Apollo server with the GraphQL schema
-const startApolloServer = async () => {
-  await server.start();
+// Start the Apollo server
+const startServer = async () => {
+    await server.start(); // Ensure the server is started
 
-  app.use(express.urlencoded({ extended: false }));
-  app.use(express.json());
+    server.applyMiddleware({ app }); // Apply middleware after the server has started
 
-  app.use('/graphql', expressMiddleware(server, {
-    context: authMiddleware
-  }));
-
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/dist')));
-
+    // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
     app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+        res.sendFile(path.join(__dirname, '../client/build/index.html'));
     });
-  }
 
-  db.once('open', () => {
+    // Start the Express server
     app.listen(PORT, () => {
-      console.log(`API server running on port ${PORT}!`);
-      console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
+        console.log(`Server is running on http://localhost:${PORT}${server.graphqlPath}`);
     });
-  });
 };
 
-// Call the async function to start the server
-startApolloServer();
+// Call the startServer function to start everything
+startServer().catch(err => console.error(err));

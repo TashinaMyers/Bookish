@@ -1,39 +1,20 @@
-// implements authentication functionality using JSON Web Tokens (JWT) in a GraphQL application.
-
-const { GraphQLError } = require('graphql');
 const jwt = require('jsonwebtoken');
+const { AuthenticationError } = require('apollo-server-express');
+const { User } = require('../models');
 
-const secret = 'mysecretssshhhhhhh';
-const expiration = '2h';
+const secret = 'AAAAAAAAh'; 
+const expiration = '2h'; // Token expiration time
 
-module.exports = {
-  AuthenticationError: new GraphQLError('Could not authenticate user.', {
-    extensions: {
-      code: 'UNAUTHENTICATED',
-    },
-  }),
-  authMiddleware: function ({ req }) {
-    let token = req.body.token || req.query.token || req.headers.authorization;
+module.exports = function (context) {
+  const token = context.req.headers.authorization || '';
 
-    if (req.headers.authorization) {
-      token = token.split(' ').pop().trim();
-    }
-
-    if (!token) {
-      return req;
-    }
-
+  if (token) {
     try {
-      const { authenticatedPerson } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = authenticatedPerson;
+      const { data } = jwt.verify(token.split(' ').pop(), secret);
+      return { user: data };
     } catch {
-      console.log('Invalid token');
+      throw new AuthenticationError('Invalid token');
     }
-
-    return req;
-  },
-  signToken: function ({ email, username, _id }) {
-    const payload = { email, username, _id };
-    return jwt.sign({ authenticatedPerson: payload }, secret, { expiresIn: expiration });
-  },
+  }
+  return { user: null };
 };
