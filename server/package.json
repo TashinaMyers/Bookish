@@ -16,6 +16,7 @@
   "dependencies": {
     "apollo-server-express": "^3.13.0",
     "bcrypt": "^4.0.1",
+    "cors": "^2.8.5",
     "express": "^4.21.0",
     "helmet": "^8.0.0",
     "jsonwebtoken": "^8.5.1",
