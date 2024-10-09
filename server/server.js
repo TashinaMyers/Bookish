@@ -10,6 +10,15 @@ const db = require("./config/connection");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+//app.use((req, res, next) => {
+ // res.setHeader("Content-Security-Policy", 
+ //   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.statismeter.com https://cdn.segment.com; " +
+  //  "default-src 'self'; " +
+ //   "object-src 'none';"
+//  );
+ // next();
+// });
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
