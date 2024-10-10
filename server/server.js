@@ -10,6 +10,8 @@ const db = require("./config/connection");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+//////////////////////////TEST//////////////////////////////////////
+
 const cors = require('cors');
 
 const helmet = require('helmet');
@@ -76,7 +78,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
+///////////////////////////////TEST////////////////////////////////////
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -96,6 +98,16 @@ async function startApolloServer() {
     resolvers,
     context: authMiddleware,
   });
+
+////////////TEST////////////////
+
+// Use Apollo Sandbox
+// const sandbox = new ApolloSandbox({
+// endpoint: '/graphql',
+// });
+// app.use('/sandbox', sandbox.middleware());
+
+////////////TEST////////////////
 
   // Start the Apollo Server
   await server.start();
