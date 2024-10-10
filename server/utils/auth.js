@@ -1,20 +1,17 @@
-const jwt = require('jsonwebtoken');
-const { AuthenticationError } = require('apollo-server-express');
-const { User } = require('../models');
+const { GraphQLError } = require("graphql");
+const jwt = require("jsonwebtoken");
 
-const secret = 'AAAAAAAAh'; 
-const expiration = '2h'; // Token expiration time
+const secret = "mysecretssshhhhhhh";
+const expiration = "2h";
 
-module.exports = function (context) {
-  const token = context.req.headers.authorization || '';
-
-  if (token) {
-    try {
-      const { data } = jwt.verify(token.split(' ').pop(), secret);
-      return { user: data };
-    } catch {
-      throw new AuthenticationError('Invalid token');
-    }
-  }
-  return { user: null };
+module.exports = {
+  AuthenticationError: new GraphQLError("Could not authenticate user.", {
+    extensions: {
+      code: "UNAUTHENTICATED",
+    },
+  }),
+  signToken: function ({ email, name, _id }) {
+    const payload = { email, name, _id };
+    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  },
 };
