@@ -29,6 +29,14 @@ app.get("/", (req, res) => {
 
 const startApolloServer = async () => {
   await server.start();
+  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
+  app.use(
+    "/graphql",
+    expressMiddleware(server, {
+      context: authMiddleware,
+    })
+  );
 
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
@@ -47,10 +55,8 @@ const startApolloServer = async () => {
   // Listen on the specified port after MongoDB connection is open
   db.once("open", () => {
     app.listen(PORT, () => {
-      console.log(
-        `Server is running on http://localhost:${PORT}${server.graphqlPath}`
-      );
-      console.log("Successfully connected to MongoDB");
+      console.log(`API server running on port ${PORT}!`);
+      console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
     });
   });
 
