@@ -1,4 +1,3 @@
-// utils/auth.js
 import decode from 'jwt-decode';
 
 class AuthService {
@@ -8,7 +7,7 @@ class AuthService {
 
   loggedIn() {
     const token = this.getToken();
-    return !!token && !this.isTokenExpired(token); 
+    return !!token && !this.isTokenExpired(token);
   }
 
   isTokenExpired(token) {
@@ -31,7 +30,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
-    window.location.assign('/'); // Redirect user to homepage
+    window.location.assign('/');
   }
 }
 
