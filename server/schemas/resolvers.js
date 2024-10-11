@@ -1,35 +1,37 @@
-const { User, Book } = require('../models');
-const { AuthenticationError } = require('apollo-server-express');
-const { signToken } = require('../utils/auth');
+const { User, Book } = require("../models");
+const { AuthenticationError } = require("apollo-server-express");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = await User.findById(context.user._id).select('-__v -password');
+        const userData = await User.findById(context.user._id).select(
+          "-__v -password"
+        );
         return userData;
       }
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError("Not logged in");
     },
     books: async () => {
-      return await Book.find(); 
+      return await Book.find();
     },
     book: async (parent, { bookId }) => {
-      return await Book.findById(bookId); 
+      return await Book.find();
     },
   },
-  
+
   Mutation: {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const token = signToken(user);
@@ -42,16 +44,24 @@ const resolvers = {
       return { token, user };
     },
 
-    saveBook: async (parent, { bookId, authors, description, title, image, link }, context) => {
+    saveBook: async (
+      parent,
+      { bookId, authors, description, title, image, link },
+      context
+    ) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           context.user._id,
-          { $addToSet: { savedBooks: { bookId, authors, description, title, image, link } } },
+          {
+            $addToSet: {
+              savedBooks: { bookId, authors, description, title, image, link },
+            },
+          },
           { new: true }
         );
         return updatedUser;
       }
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError("Not logged in");
     },
 
     removeBook: async (parent, { bookId }, context) => {
@@ -63,7 +73,7 @@ const resolvers = {
         );
         return updatedUser;
       }
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError("Not logged in");
     },
   },
 };
