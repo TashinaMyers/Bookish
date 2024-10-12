@@ -19,6 +19,28 @@ const resolvers = {
     book: async (parent, { bookId }) => {
       return await Book.find();
     },
+    bookSearch: async (parent, { searchTerm }) => {
+      try {
+        const res = await fetch(
+          `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${process.env.GOOGLE_API_KEY}`
+        );
+        const result = await res.json();
+        const items = result.items || [];
+        return items.map((book) => {
+          const bookId = book.id;
+          const authors = book.volumeInfo.authors || ["No author to display"];
+          const description =
+            book.volumeInfo.description || "No description to display";
+          const title = book.volumeInfo.title;
+          const image =
+            book.volumeInfo.imageLinks?.thumbnail || "No image to display";
+          const link = book.volumeInfo.previewLink;
+          return { bookId, authors, description, title, image, link };
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 
   Mutation: {
