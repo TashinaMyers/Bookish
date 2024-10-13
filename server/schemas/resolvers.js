@@ -19,7 +19,7 @@ const resolvers = {
     book: async (parent, { bookId }) => {
       return await Book.find();
     },
-    bookSearch: async (parent, { searchTerm }) => {
+    bookSearch: async (parent, { searchTerm }, context) => {
       try {
         const res = await fetch(
           `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${process.env.GOOGLE_API_KEY}`
