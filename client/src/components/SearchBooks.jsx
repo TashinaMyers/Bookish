@@ -20,6 +20,7 @@ const SearchBooks = () => {
   return (
     <div>
       {/* Your search book input and result display logic here */}
+      <p> Hello! </p>
     </div>
   );
 };
