@@ -1,6 +1,6 @@
 import React from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
 import SearchBooks from './components/SearchBooks';
 import SavedBooks from './components/SavedBooks';
 import LoginForm from './components/LoginForm';
@@ -14,16 +14,20 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={SearchBooks} />
+      {/* <Router> */}
+      {/* <Routes>
+          <Route exact path="/" element={<SearchBooks/>} />
           <Route exact path="/saved" component={SavedBooks} />
           <Route exact path="/login" component={LoginForm} />
           <Route exact path="/signup" component={SignupForm} />
-        </Switch>
-      </Router>
+      </Routes> */} 
+      {/* </Router> */}
+      < Outlet />
     </ApolloProvider>
   );
 }
 
 export default App;
+
+
+//Nav on 23, Footer on 26
