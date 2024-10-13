@@ -3,7 +3,7 @@ import { useState } from "react";
 import { loginUser } from "../utils/API";
 import Auth from "../utils/auth";
 import LoginForm from "../components/LoginForm";
-import SignupForm from "../components/SignupForm";
+import SignupForm from "./SignupPage";
 import Navbar from "../components/Navbar";
 
 const Home = () => {

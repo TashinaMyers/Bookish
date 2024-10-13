@@ -6,6 +6,7 @@ import App from './App.jsx'
 // import SavedBooks from './components/SavedBooks'
 import Home from './pages/Home.jsx'
 import Profile from './pages/Profile.jsx'
+import Signup from './pages/SignupPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,15 @@ const router = createBrowserRouter([
         element: <Home />
       }, 
       {
-        path: '/Profile',
+        path: '/signup',
+        element: <Signup />
+      },
+      {
+        path: '/me',
+        element: <Profile />
+      },
+      {
+        path: '/profiles/:username',
         element: <Profile />
       },
 
