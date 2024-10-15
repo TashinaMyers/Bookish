@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 const express = require("express");
 const { ApolloServer } = require("@apollo/server");
 const path = require("path");
@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt"); // For password hashing
 const session = require("express-session"); // For session management
 const { authMiddleware } = require("./utils/auth");
 const { expressMiddleware } = require("@apollo/server/express4");
+const cors = require("cors");
 
 // Import the typeDefs and resolvers
 const { typeDefs, resolvers } = require("./schemas");
@@ -23,7 +24,7 @@ const server = new ApolloServer({
 
 const startApolloServer = async () => {
   await server.start();
-
+  app.use(cors());
   // Middleware to parse form data
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
@@ -39,7 +40,7 @@ const startApolloServer = async () => {
   );
 
   // Apollo middleware
-  app.use(
+  app.all(
     "/graphql",
     expressMiddleware(server, {
       context: authMiddleware,
@@ -47,9 +48,9 @@ const startApolloServer = async () => {
   );
 
   // Login route (GET request)
-  app.get("/login", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/login.html")); // Serve login page
-  });
+  // app.get("/login", (req, res) => {
+  //   res.sendFile(path.join(__dirname, "../client/login.html")); // Serve login page
+  // });
 
   // Login route (POST request)
   app.post("/api/login", async (req, res) => {
@@ -86,7 +87,6 @@ const startApolloServer = async () => {
   // Serve static assets if in production
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/dist")));
-
     app.get("*", (req, res) => {
       res.sendFile(path.join(__dirname, "../client/dist/index.html"));
     });
