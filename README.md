@@ -19,6 +19,7 @@ If you have any feedback, please reach out to us at https://github.com/TashinaMy
 
 ## Screenshots
 
+![image](https://github.com/user-attachments/assets/7dc4712b-f693-4971-86bc-65d9237af21b)
 
 
 
