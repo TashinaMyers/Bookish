@@ -48,8 +48,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-//Nav on 23, Footer on 26

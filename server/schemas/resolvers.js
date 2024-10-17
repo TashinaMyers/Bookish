@@ -22,9 +22,10 @@ const resolvers = {
     bookSearch: async (parent, { searchTerm }) => {
       try {
         const res = await fetch(
-          `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${process.env.GOOGLE_API_KEY}`
+          `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${process.env.VITE_GOOGLE_KEY}`
         );
         const result = await res.json();
+        console.log(result);
         const items = result.items || [];
         return items.map((book) => {
           const bookId = book.id;
