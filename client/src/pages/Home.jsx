@@ -9,7 +9,7 @@ import Navbar from "../components/Navbar";
 const Home = () => {
   return (
     <section>
-        < LoginForm />
+      
     {/* So this should be something else if our Login/Signup is already in our header. */}
     </section>
   )
